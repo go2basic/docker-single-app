@@ -1,0 +1,17 @@
+sudo: required
+
+language: generic
+
+service:
+  - docker
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker build -t go2basic/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true go2basic/docker-react-app npm run test -- --coverage
+
+after_install:
+  - echo "Test Success"
+
